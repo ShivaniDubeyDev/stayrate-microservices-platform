@@ -1,0 +1,133 @@
+{
+  "info": {
+    "_postman_id": "stayrate-rating-service-comprehensive",
+    "name": "StayRate - Rating Service (:8083)",
+    "description": "Complete collection for all 7 CRUD and query operations in RatingService.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "RATING_SERVICE_URL",
+      "value": "http://localhost:8083",
+      "type": "string"
+    },
+    {
+      "key": "BEARER_TOKEN",
+      "value": "your_okta_jwt_token_here",
+      "type": "string"
+    },
+    { "key": "userId", "value": "usr-101", "type": "string" },
+    { "key": "hotelId", "value": "htl-202", "type": "string" },
+    { "key": "ratingId", "value": "rtg-303", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "1. Create Rating (Admin Authority)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{BEARER_TOKEN}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"ratingId\": \"{{ratingId}}\",\n    \"userId\": \"{{userId}}\",\n    \"hotelId\": \"{{hotelId}}\",\n    \"rating\": 5,\n    \"feedback\": \"Pristine service and modern amenities!\"\n}"
+        },
+        "url": {
+          "raw": "{{RATING_SERVICE_URL}}/ratings",
+          "host": ["{{RATING_SERVICE_URL}}"],
+          "path": ["ratings"]
+        }
+      }
+    },
+    {
+      "name": "2. Get Single Rating By ID",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{BEARER_TOKEN}}" }
+        ],
+        "url": {
+          "raw": "{{RATING_SERVICE_URL}}/ratings/{{ratingId}}",
+          "host": ["{{RATING_SERVICE_URL}}"],
+          "path": ["ratings", "{{ratingId}}"]
+        }
+      }
+    },
+    {
+      "name": "3. Get All Ratings",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{BEARER_TOKEN}}" }
+        ],
+        "url": {
+          "raw": "{{RATING_SERVICE_URL}}/ratings",
+          "host": ["{{RATING_SERVICE_URL}}"],
+          "path": ["ratings"]
+        }
+      }
+    },
+    {
+      "name": "4. Get Ratings By User ID",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{BEARER_TOKEN}}" }
+        ],
+        "url": {
+          "raw": "{{RATING_SERVICE_URL}}/ratings/users/{{userId}}",
+          "host": ["{{RATING_SERVICE_URL}}"],
+          "path": ["ratings", "users", "{{userId}}"]
+        }
+      }
+    },
+    {
+      "name": "5. Get Ratings By Hotel ID",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{BEARER_TOKEN}}" }
+        ],
+        "url": {
+          "raw": "{{RATING_SERVICE_URL}}/ratings/hotels/{{hotelId}}",
+          "host": ["{{RATING_SERVICE_URL}}"],
+          "path": ["ratings", "hotels", "{{hotelId}}"]
+        }
+      }
+    },
+    {
+      "name": "6. Update Rating",
+      "request": {
+        "method": "PUT",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{BEARER_TOKEN}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"rating\": 4,\n    \"feedback\": \"Updated feedback\"\n}"
+        },
+        "url": {
+          "raw": "{{RATING_SERVICE_URL}}/ratings/{{ratingId}}",
+          "host": ["{{RATING_SERVICE_URL}}"],
+          "path": ["ratings", "{{ratingId}}"]
+        }
+      }
+    },
+    {
+      "name": "7. Delete Rating",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{BEARER_TOKEN}}" }
+        ],
+        "url": {
+          "raw": "{{RATING_SERVICE_URL}}/ratings/{{ratingId}}",
+          "host": ["{{RATING_SERVICE_URL}}"],
+          "path": ["ratings", "{{ratingId}}"]
+        }
+      }
+    }
+  ]
+}

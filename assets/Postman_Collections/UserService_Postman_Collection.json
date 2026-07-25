@@ -1,0 +1,103 @@
+{
+  "info": {
+    "_postman_id": "stayrate-user-service-comprehensive",
+    "name": "StayRate - User Service (:8081)",
+    "description": "Complete collection for all CRUD operations and Feign aggregation in UserService.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "USER_SERVICE_URL",
+      "value": "http://localhost:8081",
+      "type": "string"
+    },
+    {
+      "key": "BEARER_TOKEN",
+      "value": "your_okta_jwt_token_here",
+      "type": "string"
+    },
+    { "key": "userId", "value": "usr-101", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "1. Create User",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{BEARER_TOKEN}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"userId\": \"{{userId}}\",\n    \"name\": \"Shivani Dubey\",\n    \"email\": \"shivani@example.com\",\n    \"about\": \"Software Engineer and Tech Enthusiast\"\n}"
+        },
+        "url": {
+          "raw": "{{USER_SERVICE_URL}}/users",
+          "host": ["{{USER_SERVICE_URL}}"],
+          "path": ["users"]
+        }
+      }
+    },
+    {
+      "name": "2. Get All Users",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{BEARER_TOKEN}}" }
+        ],
+        "url": {
+          "raw": "{{USER_SERVICE_URL}}/users",
+          "host": ["{{USER_SERVICE_URL}}"],
+          "path": ["users"]
+        }
+      }
+    },
+    {
+      "name": "3. Get User By ID (Inter-Service Feign & Token Relay)",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{BEARER_TOKEN}}" }
+        ],
+        "url": {
+          "raw": "{{USER_SERVICE_URL}}/users/{{userId}}",
+          "host": ["{{USER_SERVICE_URL}}"],
+          "path": ["users", "{{userId}}"]
+        }
+      }
+    },
+    {
+      "name": "4. Update User",
+      "request": {
+        "method": "PUT",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{BEARER_TOKEN}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"name\": \"Shivani Dubey (Updated)\",\n    \"email\": \"shivani.updated@example.com\",\n    \"about\": \"Lead Software Engineer\"\n}"
+        },
+        "url": {
+          "raw": "{{USER_SERVICE_URL}}/users/{{userId}}",
+          "host": ["{{USER_SERVICE_URL}}"],
+          "path": ["users", "{{userId}}"]
+        }
+      }
+    },
+    {
+      "name": "5. Delete User",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{BEARER_TOKEN}}" }
+        ],
+        "url": {
+          "raw": "{{USER_SERVICE_URL}}/users/{{userId}}",
+          "host": ["{{USER_SERVICE_URL}}"],
+          "path": ["users", "{{userId}}"]
+        }
+      }
+    }
+  ]
+}
